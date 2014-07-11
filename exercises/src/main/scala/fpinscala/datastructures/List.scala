@@ -46,16 +46,47 @@ object List { // `List` companion object. Contains functions for creating and wo
   def product2(ns: List[Double]) = 
     foldRight(ns, 1.0)(_ * _) // `_ * _` is more concise notation for `(x,y) => x * y`; see sidebar
 
+  // ex. 2
+  def tail[A](l: List[A]): List[A] = {
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) => xs
+    }
+  }
 
-  def tail[A](l: List[A]): List[A] = sys.error("todo")
+  // ex. 3
+  def setHead[A](l: List[A], h: A): List[A] = {
+    l match {
+      case Nil => Cons(h, Nil)
+      case Cons(x, xs) => Cons(h, xs)
+    }
+  }
 
-  def setHead[A](l: List[A], h: A): List[A] = sys.error("todo")
+  // ex. 4
+  def drop[A](l: List[A], n: Int): List[A] = {
+    l match {
+      case _ if (n <= 0) => l
+      case Cons(x, xs) => drop(xs, n - 1)
+      case Nil => Nil
+    }
+  }
 
-  def drop[A](l: List[A], n: Int): List[A] = sys.error("todo")
+  // ex. 5
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = {
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) if f(x) => dropWhile(xs, f)
+      case _ => l
+    }
+  }
 
-  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = sys.error("todo")
-
-  def init[A](l: List[A]): List[A] = sys.error("todo")
+  def init[A](l: List[A]): List[A] = {
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) if (xs == Nil) => Nil
+      case Cons(x, xs) => Cons(x, init(xs))
+    }
+  }
 
   def length[A](l: List[A]): Int = sys.error("todo")
 
